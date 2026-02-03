@@ -1,124 +1,108 @@
-# 🔮 API Churn Prediction – Flask + Swagger + Machine Learning
+# 🔮 Churn Prediction System  
+**Machine Learning · Flask API · Swagger · Angular Dashboard**
 
-Cette API permet :
+This project is a **complete customer churn prediction application**, composed of:
 
-- d'afficher un tableau de bord statistique sur les modèles ML,
-- de charger un modèle de prédiction du churn (RandomForest/XGBoost),
-- de prédire si un client risque de churn,
-- d’être consommée par un frontend Angular,
-- de tester directement tous les endpoints via Swagger UI.
-
----
-
-## 📁 1. Structure du projet
-
-```
-backend/
-│
-├── app.py                     → API Flask + Swagger
-├── model.py                   → Chargement du modèle ML, prédiction, stats
-├── requirements.txt           → Dépendances du projet
-│
-└── models/
-    ├── random_forest_tuned.joblib
-    └── scaler.joblib
-```
+- 🔙 Flask backend exposing a REST API documented with Swagger  
+- 🧠 Machine Learning models (Random Forest / XGBoost)  
+- 🔜 Angular frontend for visualization and prediction  
+- 📊 Interactive dashboard  
+- 🖼️ Demonstration screenshots  
 
 ---
 
-## 🚀 2. Installation
+## 🎯 Project Objectives
 
-### 2.1. Cloner le projet
+- Predict whether a customer is likely to churn  
+- Expose a Machine Learning model through a REST API  
+- Visualize statistics and prediction results in an Angular interface  
+- Easily test endpoints using Swagger UI  
+- Clearly separate frontend and backend layers  
+
+---
+
+## 📁 Global Project Structure
+
+```
+
+CHURN/
+│
+├── backend/
+│   ├── app.py
+│   ├── model.py
+│   ├── requirements.txt
+│   ├── models/
+│   │   ├── random_forest_tuned.joblib
+│   │   └── scaler.joblib
+│   └── venv/                # ignored
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── angular.json
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── node_modules/        # ignored
+│
+├── Demo/
+│   ├── customer info.png
+│   ├── dashboard.png
+│   ├── predicted features.png
+│   └── prediction result.png
+│
+├── .gitignore
+└── README.md
+
+````
+
+---
+
+## 🚀 Installation and Execution
+
+### 🔙 Backend (Flask API)
 
 ```bash
-git clone <URL_DU_PROJET>
 cd backend
-```
-
-### 2.2. Créer un environnement virtuel
-
-```bash
 python -m venv venv
-```
-
-### 2.3. Activer l’environnement
-
-#### Windows :
-```bash
 venv\Scripts\activate
-```
-
-
-
-### 2.4. Installer les dépendances
-
-```bash
 pip install -r requirements.txt
-```
-
----
-
-## 🧠 3. Lancer le serveur Flask
-
-```bash
 python app.py
-```
+````
 
-L’API est maintenant disponible à :
-
-```
-http://localhost:5000
-```
-
-Swagger UI est disponible ici :
-
-➡️ **http://localhost:5000/apidocs**
+📍 API: [http://localhost:5000](http://localhost:5000)
+📘 Swagger: [http://localhost:5000/apidocs](http://localhost:5000/apidocs)
 
 ---
 
-## 🧠 3.1. Lancer Angular
+### 🔜 Frontend (Angular)
 
 ```bash
 cd frontend
-```
-
-```bash
+npm install
 ng serve --open
 ```
 
-L’API est maintenant disponible à :
+📍 Application: [http://localhost:4200](http://localhost:4200)
 
-```
-http://localhost:4200/
-```
-----
+---
 
-## 📡 4. Endpoints disponibles
+## 📡 API – Main Endpoints
 
-### ✔ `/api/health`  
-Vérifie que l’API fonctionne.
+### ✔ /api/health
 
-**Réponse :**
 ```json
 { "status": "ok" }
 ```
 
----
+### ✔ /api/dashboard
 
-### ✔ `/api/dashboard`  
-Renvoie des statistiques pour le tableau de bord Angular :
+* Dataset statistics
+* ML model performance
+* Best performing model
+* Most important features
 
-- caractéristiques du dataset  
-- performances des modèles ML  
-- meilleur modèle après fine-tuning  
-- top features ex. (Age, NumOfProducts…)  
+### ✔ /api/predict (POST)
 
----
-
-### ✔ `/api/predict` (POST)  
-Prédit si un client va churn ou non.
-
-**Exemple de corps JSON attendu :**
 ```json
 {
   "CreditScore": 650,
@@ -135,7 +119,6 @@ Prédit si un client va churn ou non.
 }
 ```
 
-**Réponse exemple :**
 ```json
 {
   "success": true,
@@ -149,51 +132,50 @@ Prédit si un client va churn ou non.
 
 ---
 
-## 🌐 5. Intégration Angular
-
-### Importer HttpClientModule dans Angular :
-
-```ts
-import { HttpClientModule } from '@angular/common/http';
-```
-
-### Service Angular :
+## 🌐 Angular Integration
 
 ```ts
 this.http.get("http://localhost:5000/api/dashboard");
 this.http.post("http://localhost:5000/api/predict", payload);
 ```
 
-CORS est déjà activé côté Flask.
+✔ CORS is enabled on the Flask backend.
 
 ---
 
-## 🧪 6. Tester l’API via Swagger
-
-Swagger UI est accessible à :
-
-➡️ http://localhost:5000/apidocs
-
-Vous pouvez :
-
-- exécuter toutes les requêtes
-- modifier le JSON d’entrée
-- visualiser les résultats formats JSON
-- tester rapidement sans Postman
-
----
-
-## 🖼️ Demo (Screenshots)
-
-### 🔹 Customer Info
-![Customer Info](Demo/customer%20info.png)
+## 🖼️ Demo – Screenshots
 
 ### 🔹 Dashboard
+
 ![Dashboard](Demo/dashboard.png)
 
 ### 🔹 Predicted Features
+
 ![Predicted Features](Demo/predicted%20features.png)
 
+### 🔹 Customer Info
+
+![Customer Info](Demo/customer%20info.png)
+
 ### 🔹 Prediction Result
+
 ![Prediction Result](Demo/prediction%20result.png)
+
+---
+
+## 🛠️ Technologies Used
+
+* Backend: Python, Flask, Swagger (Flasgger)
+* Machine Learning: Scikit-learn, Random Forest, XGBoost
+* Frontend: Angular, TypeScript, HTML, CSS
+* Tools: Git, GitHub, Swagger UI
+
+---
+
+## 👤 Author
+
+Ahmed Hamda
+Engineering Student – Web & Multimedia Technologies (TWM)
+ISIMS – Sfax
+[https://github.com/ahmed-hamda](https://github.com/ahmed-hamda)
 
